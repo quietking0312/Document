@@ -17,6 +17,10 @@
 
 [jenkins](./tools/jenkins.md)
 
+###### 运维工具
+
+
+[Zabbix](./tools/zabbix.md)
 
 
 
