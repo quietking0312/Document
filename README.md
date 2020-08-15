@@ -7,6 +7,10 @@
 
 [python](./language/python.md)
 
+[node](./language/node.md)
+
+[vue](./language/vue.md)
+
 ###### 操作系统类
 
 [linux命令](./system/linux/shell.md)

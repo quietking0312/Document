@@ -1,3 +1,6 @@
+> 查询云端镜像
+
+    sudo docker search mongo
 
 > 删除镜像
 
