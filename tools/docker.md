@@ -1,6 +1,27 @@
+
+> 修改镜像源
+    
+    1. 指定镜像全部路径
+    
+    docker pull {地址源无http}/ubuntu
+    
+    2. 修改
+    /etc/docker/daemon.json
+    
+    {
+      "registry-mirrors": ["{地址源有http}"]
+    }
+    
+    3. 配置守护进程
+    dockerd --registry-mirror={地址源有http}
+
 > 查询云端镜像
 
     sudo docker search mongo
+    
+> 拉取镜像
+
+    sudo docker pull {image_name}:{tag}
 
 > 删除镜像
 
