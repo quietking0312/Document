@@ -50,6 +50,16 @@
     删除
     sudo docker volume rm {volumename}
     
+> 获取容器名称
+
+    docker ps -a --format "{{.Name}}"
+
+>Windows 上使用docker 
+
+    安装好docker后， 务必点击 switch to Linux containers， 否则镜像会安装失败
+
+
+
 
 
 
