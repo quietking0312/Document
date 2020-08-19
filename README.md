@@ -11,6 +11,8 @@
 
 [vue](./language/vue.md)
 
+[mysql](./language/mysql.md)
+
 ###### 操作系统类
 
 [linux命令](./system/linux/shell.md)
