@@ -1,5 +1,10 @@
 
 ### 修改环境变量添加阿里云镜像
+    # windows
+    go env -w GO111MODULE=on
+    go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/
+    
+    # mac
     export GOPROXY=https://mirrors.aliyun.com/goproxy/
 
 ### go mod 命令
