@@ -2,6 +2,8 @@
 > 安装
 
     http://nodejs.cn/download/
+    
+    https://npm.taobao.org/mirrors/
 
 > npm换源
 

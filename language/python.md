@@ -1,3 +1,8 @@
+>下载
+
+    https://npm.taobao.org/mirrors/
+
+
 ### mac 环境没有自带pip 命令
     sudo easy_install pip   #pip 安装
 
