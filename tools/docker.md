@@ -58,8 +58,13 @@
 
     安装好docker后， 务必点击 switch to Linux containers， 否则镜像会安装失败
 
+>容器启动
 
-
+    docker run -itd --name mongo -p 27017:27017 mongo
+    
+    docker run -itd --name redis -p 6379:6379 redis:latest
+    
+    docker run -itd --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD="123456" -e MYSQL_DATABASE="TEST" mysql
 
 
 
