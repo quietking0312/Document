@@ -17,6 +17,10 @@
 
 [linux命令](./system/linux/shell.md)
 
+│  [apt-get](./system/linux/apt-get.md)
+
+│  [其他](./system/linux/centos.md)
+
 [mac命令](./system/mac/shell.md)
 
 ###### 工具类
@@ -25,12 +29,12 @@
 
 [jenkins](./tools/jenkins.md)
 
+[git](./tools/git.md)
+
 ###### 运维工具
 
 
 [Zabbix](./tools/zabbix.md)
-
-
 
 
 

@@ -12,3 +12,6 @@
     -q, --quiet             // 减少输出
     --purge                 // 配合 remove 命令删除包的配置文件
     --reinstall             // 重新安装已安装的包或其新版本
+
+
+[返回目录](../../README.md)
