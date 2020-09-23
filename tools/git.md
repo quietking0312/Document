@@ -1,6 +1,27 @@
 
-    # 忽略换行符差异
-    git config --global core.autocrlf true
+       查看系统config
+       
+       git config --system --list
+
+       查看当前用户（global）配置
+       
+       git config --global  --list
+        
+       查看当前仓库配置信息
+       
+       git config --local  --list
+   
+
+    // 提交时转换为LF，检出时转换为CRLF
+    git config --global core.autocrlf true   
+    
+    // 提交时转换为LF，检出时不转换
+    git config --global core.autocrlf input   
+    
+    // 提交检出均不转换
+    git config --global core.autocrlf false
+    
+    
 
 > windows 上安装 git 说明
 ![Image text](git_001.png)
