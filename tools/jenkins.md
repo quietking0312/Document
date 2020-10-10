@@ -1,6 +1,8 @@
 ### jenkins
     
-    
+    // 安装命令
+    // mac
+    brew install jenkins-lts
     
     // 启动命令
     // mac
