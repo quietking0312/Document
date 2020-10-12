@@ -15,7 +15,11 @@
 
     virtualenv -p python2.7 py2env
     
+    // 进入虚拟环境
     source py2env/bin/active
+    
+    // 进入虚拟环境
+    (WINDOWS)py2env/Script/active
     
 ### pip 命令
     pip freeze > requirements.txt     #导出第三方库版本
