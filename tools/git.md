@@ -22,6 +22,16 @@
     git config --global core.autocrlf false
     
     
+    // 配置远程地址
+    git remote add origin url
+    
+    // 删除远程地址
+    git remote rm origin
+    
+    // 查看远程地址
+    git remote -v
+    
+    
 
 > windows 上安装 git 说明
 ![Image text](git_001.png)

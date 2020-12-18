@@ -15,6 +15,17 @@
     CREATE DATABASE  IF NOT EXISTS `db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
     
 
+> 导出表结构
 
+    mysqldump -hhostname -uusername -ppassword -d databasename > d:\sql\databasename.sql
 
+> 导出数据
+
+    mysqldump -hhostname -uusername -ppassword databasename > d:\sql\databasename.sql
+
+> 导入
+
+    use databasename;
+    source databasename.sql
+    
 [返回目录](../README.md)
