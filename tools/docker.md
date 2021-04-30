@@ -27,6 +27,10 @@
 
     sudo docker rmi {image_name}:{tag}
     
+> 查看容器信息
+
+    docker inspect {容器名}
+
 > 删除容器
 
     sudo docker rm {containerid}

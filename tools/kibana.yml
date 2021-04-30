@@ -1,0 +1,36 @@
+#节点地址和端口 必须是同一个集群的 必须以http或者https开头 填写实际的es地址和端口
+elasticsearch.hosts: ['http://192.168.3.115:9200']
+#发给es的查询记录 需要日志等级是verbose=true 
+elasticsearch.logQueries: true
+#连接es的超时时间 单位毫秒
+elasticsearch.pingTimeout: 30000
+elasticsearch.requestTimeout: 30000
+#是否只能使用server.host访问服务
+elasticsearch.preserveHost: true
+#首页对应的appid
+kibana.defaultAppId: "home"
+kibana.index: '.kibana'
+#存储日志的文件设置
+logging.dest: /usr/share/kibana/logs/kibana.log
+logging.json: true
+#是否只输出错误日志信息
+logging.quiet: false
+logging.rotate:
+  enabled: true
+  #日志文件最大大小
+  everyBytes: 10485760
+  #保留的日志文件个数
+  keepFiles: 7
+logging.timezone: UTC
+logging.verbose: true
+monitoring.kibana.collection.enabled: true
+xpack.monitoring.collection.enabled: true
+#存储持久化数据的位置
+path.data: /usr/share/kibana/data
+#访问kibana的地址和端口配置 一般使用可访问的服务器地址即可
+server.host: 0.0.0.0
+#端口默认5601
+server.port: 5601
+server.name: "kibana"
+#配置页面语言
+i18n.locale: zh-CN

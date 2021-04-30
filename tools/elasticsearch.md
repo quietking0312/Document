@@ -2,7 +2,7 @@
 
     docker pull elasticsearch:7.7.1 
     
-    docker run -d -e ES_JAVA_POTS="-Xms512m -Xmx512m"  -e "discovery.type=single-node" -p 9200:9200 -p 9300:9300 --name es7.7.1 {镜像id}
+    docker run -d -e ES_JAVA_POTS="-Xms512m -Xmx512m" -e "discovery.type=single-node" -v D:\myDocker\ek\es\data:/usr/share/elasticsearch/data -v D:\myDocker\ek\es\logs:/usr/share/elasticsearch/logs -p 9200:9200 -p 9300:9300 --name es7.7.1 {镜像id}
     
     
 # 实体环境搭建
