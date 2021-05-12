@@ -103,4 +103,11 @@
     --help : 显示辅助说明
     --version : 显示版本
 
+> ls 命令
+
+    # 只显示目录
+    ls -F | grep "/$"
+    # 只显示文件
+    ls -al | grep "^-"
+
 [返回目录](../../README.md)
