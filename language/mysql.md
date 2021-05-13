@@ -27,5 +27,9 @@
 
     use databasename;
     source databasename.sql
+
+> 查看详细列
+    
+    show full fields from table;
     
 [返回目录](../README.md)
