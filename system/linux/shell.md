@@ -54,7 +54,9 @@
     df -h
     // 查看指定目录占用磁盘
     du -ah {目录}
-    
+
+    du -h --max-depth=1 {目录}
+
 > 查看并发
     
     netstat -antp | grep 80 | grep ESTABLSED -c
