@@ -62,6 +62,12 @@
 
     安装好docker后， 务必点击 switch to Linux containers， 否则镜像会安装失败
 
+    # 查看系统信息
+    systeminfo
+
+    bcdedit /set hypervisorlaunchtype Auto
+
+    
 >容器启动
 
     docker run -itd --name mongo -p 27017:27017 -v /home/mongo/data:/data/db -v /home/mongo/conf:/data/configdb mongo
@@ -70,8 +76,6 @@
     
     docker run -itd --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD="123456" -e MYSQL_DATABASE="TEST" mysql
 
-> 容器具体信息查看
-    
-    docker inspect {dockerName}
+
 
 [返回目录](../README.md)
