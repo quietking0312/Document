@@ -74,7 +74,7 @@
     
     docker run -itd --name redis -p 6379:6379 redis:latest
     
-    docker run -itd --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD="123456" -e MYSQL_DATABASE="TEST" mysql
+    docker run -itd --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD="123456" -e MYSQL_DATABASE="TEST" -v /home/mysql/data:/var/lib/mysql -v /home/mysql/my.cnf:/etc/mysql/my.cnf mysql
 
 
 
