@@ -57,6 +57,17 @@
 
     du -h --max-depth=1 {目录}
 
+> 创建磁盘分区
+    
+    fdisk /dev/sdb
+
+    mkfs.ext4 /dev/sdb
+
+    vim /etc/fstab 
+        /dev/sdb                /home/sdb               ext4    defaults        0 0
+    mount -a
+
+
 > 查看并发
     
     netstat -antp | grep 80 | grep ESTABLSED -c

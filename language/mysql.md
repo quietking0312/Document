@@ -14,6 +14,8 @@
 
     CREATE DATABASE  IF NOT EXISTS `db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
     
+    #修改字段 
+    alter table register modify column data text;
 
 > 导出表结构
 
