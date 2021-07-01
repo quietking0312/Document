@@ -60,14 +60,14 @@
 > 创建磁盘分区
     
     fdisk /dev/sdb
-
+    # 格式化
     mkfs.ext4 /dev/sdb
-
+    # 挂载
     vim /etc/fstab 
         /dev/sdb                /home/sdb               ext4    defaults        0 0
     mount -a
-
-
+    # 卸载挂载
+    umount /dev/sdb
 > 查看并发
     
     netstat -antp | grep 80 | grep ESTABLSED -c
