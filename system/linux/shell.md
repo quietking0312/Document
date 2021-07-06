@@ -39,7 +39,9 @@
 > 进程查看
     
     // 进程查看
-    ps -aux
+    ps aux
+    // 按内存排序
+    ps aux --sort -rss
     // f 查看进程关系
     ps -ef
     
