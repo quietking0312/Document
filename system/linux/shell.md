@@ -47,7 +47,15 @@
     
     // 查看启动程序所在路径
     ls -l /proc/{pid}
-    
+
+    // 查看cpu 最高的10个进程
+
+    ps aux | sort -k3nr | head -n 10
+
+    //查看内存 最高的10个进程
+
+    ps aux | sort -k4nr | head -n 10
+
 > 查看磁盘占用
 
     // 查看磁盘挂载详情
@@ -89,8 +97,25 @@
     
     top
     // 查看详细命令
-    -c
-
+    选项说明：
+    	-d：指定top刷新的时间间隔，默认是3秒
+    	-b：批处理模式，每次刷新分批显示
+    	-n：指定top刷新几次就退出，可以配合-b使用
+    	-p：指定监控的pid，指定方式为-pN1 -pN2 ...或-pN1, N2 [,...]
+    	-u：指定要监控的用户的进程，可以是uid也可以是user_name
+    
+    常用快捷键：
+    	1：(数字1)表示是否要在top的头部显示出多个cpu信息
+    	H：表示是否要显示线程，默认不显示
+    	c,S：c表示是否要展开进程的命令行，S表示显示的cpu时间是否是累积模式，cpu累积模式下已死去的子进程cpu时间会累积到父进程中
+    	x,y：x高亮排序的列，y表示高亮running进程
+    	u：指定需要显示的用户
+    	n or #：设置要显示最大的进程数量（需要显示几个进程）
+    	k：杀进程
+    	q：退出top
+    	P：以CPU 的使用资源排序显示
+    	M：以Memory 的使用资源排序显示
+    	N：以PID 来排序    
 
     %us：表示用户空间程序的cpu使用率（没有通过nice调度）
 
@@ -147,8 +172,12 @@
     # 远程同步
     rsync -ae ssh /home/data root@127.0.0.2:/home/data
 
+
+
+
+
 > 文件句柄
-    
+
     # 查看系统级的最大限制
     cat /proc/sys/fs/file-max
     # 查看用户级的限制
@@ -157,5 +186,35 @@
     ulimit -HSn 2048
     # 永久修改文件句柄数
     vi /etc/security/limits.conf
+
+> cpu
+
+    cat /proc/cpuinfo
+
+    processor　：系统中逻辑处理核的编号。对于单核处理器，则课认为是其CPU编号，对于多核处理器则可以是物理核、或者使用超线程技术虚拟的逻辑核
+    vendor_id　：CPU制造商     
+    cpu family　：CPU产品系列代号
+    model　　　：CPU属于其系列中的哪一代的代号
+    model name：CPU属于的名字及其编号、标称主频
+    stepping　  ：CPU属于制作更新版本
+    cpu MHz　  ：CPU的实际使用主频
+    cache size   ：CPU二级缓存大小
+    physical id   ：单个CPU的标号
+    siblings       ：逻辑处理器所处CPU 物理核总数
+    core id        ：当前物理核在其所处CPU中的编号，这个编号不一定连续
+    cpu cores    ：该逻辑处理器所处CPU的物理核数
+    apicid          ：用来区分不同逻辑核的编号，系统中每个逻辑核的此编号必然不同，此编号不一定连续
+    fpu             ：是否具有浮点运算单元（Floating Point Unit）
+    fpu_exception  ：是否支持浮点计算异常
+    cpuid level   ：执行cpuid指令前，eax寄存器中的值，根据不同的值cpuid指令会返回不同的内容
+    wp             ：表明当前CPU是否在内核态支持对用户空间的写保护（Write Protection）
+    flags          ：当前CPU支持的功能
+    bogomips   ：在系统内核启动时粗略测算的CPU速度（Million Instructions Per Second）
+    clflush size  ：每次刷新缓存的大小单位
+    cache_alignment ：缓存地址对齐单位
+    address sizes     ：可访问地址空间位数
+
+![cpu.png](cpu.png)
+
 
 [返回目录](../../README.md)
