@@ -147,6 +147,15 @@
     # 远程同步
     rsync -ae ssh /home/data root@127.0.0.2:/home/data
 
-
+> 文件句柄
+    
+    # 查看系统级的最大限制
+    cat /proc/sys/fs/file-max
+    # 查看用户级的限制
+    ulimit -n
+    # 临时修改文件句柄数
+    ulimit -HSn 2048
+    # 永久修改文件句柄数
+    vi /etc/security/limits.conf
 
 [返回目录](../../README.md)
