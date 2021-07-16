@@ -173,9 +173,6 @@
     rsync -ae ssh /home/data root@127.0.0.2:/home/data
 
 
-
-
-
 > 文件句柄
 
     # 查看系统级的最大限制
@@ -216,5 +213,27 @@
 
 ![cpu.png](cpu.png)
 
+
+> 系统参数 调优
+>
+    vim /etc/sysctl.conf
+    # 表示开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接，默认为0，表示关闭, 一般用于客户端；
+    net.ipv4.tcp_tw_reuse=1
+    # 表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭。 公网不宜使用
+    net.ipv4.tcp_tw_recycle=1
+    net.ipv4.tcp_timestamps=1
+
+    net.ipv4.tcp_syncookies = 1 表示开启SYN Cookies。当出现SYN等待队列溢出时，启用cookies来处理，可防范少量SYN攻击，默认为0，表示关闭；
+    net.ipv4.tcp_fin_timeout=30 修改系統默认的 TIMEOUT 时间
+    net.ipv4.tcp_keepalive_time=1800 增加TCP SYN队列长度，使系统可以处理更多的并发连接。
+    net.ipv4.tcp_max_syn_backlog=8192
+    net.ipv4.ip_local_port_range=1024 65000 表示用于向外连接的端口范围。缺省情况下很小：32768到61000，改为1024到65000。
+    net.ipv4.tcp_max_tw_buckets=5000 表示系统同时保持TIME_WAIT套接字的最大数量，如果超过这个数字，
+
+    sysctl -p
+
+
+>查看并发
+    netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
 
 [返回目录](../../README.md)
