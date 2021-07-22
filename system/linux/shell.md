@@ -4,6 +4,10 @@
     hostnamectl set-hostname <新主机名>
     reboot    # 重启
 
+> 修改密码
+
+    passwd
+
 > 重启
 
     reboot
