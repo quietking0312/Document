@@ -272,4 +272,29 @@
     TIME_WAIT：另一边已初始化一个释放
     LAST_ACK：等待所有分组死掉
 
+
+> 后台运行
+>
+    # 使用 nohup
+    nohup sh start.sh >/dev/null 2>&1 &
+    # 使用disown
+    jobs  # 查看任务编号
+    disown -h %1
+    
+    # setsid
+    setsid sh start.sh &
+
+    # 小括号
+    (sh start.sh &)
+
+    # 将后台任务调至前台
+    jobs
+    fg 1
+    # 将前台任务放到后台 并冻结
+    ctrl +z
+
+    # 将后台冻结的任务再次运行起来， 运行任务还在后台
+    bg 1
+
+
 [返回目录](../../README.md)
