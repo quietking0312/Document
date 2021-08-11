@@ -259,6 +259,9 @@
 >查看并发
 > 
     netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+    
+    # 查看80端口并发
+    netstat -na | grep ESTABLISHED | awk -F '[: ]+' '$5~/^80/{print $0}' | wc -l
 
     CLOSED：无连接是活动的或正在进行
     LISTEN：服务器在等待进入呼叫
