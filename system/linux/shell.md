@@ -4,6 +4,9 @@
     hostnamectl set-hostname <新主机名>
     reboot    # 重启
 
+    # 查看系统内核
+    cat /etc/redhat-release
+
 > 修改密码
 
     passwd
@@ -202,7 +205,7 @@
     cat /proc/sys/fs/file-max
     # 查看用户级的限制
     ulimit -n
-    # 临时修改文件句柄数
+    # 临时修改文件句柄数f
     ulimit -HSn 2048
     # 永久修改文件句柄数
     vi /etc/security/limits.conf
