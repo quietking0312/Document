@@ -36,6 +36,23 @@
             max_clients = worker_processes * worker_connections/4
 
 
+    gzip  on;
+    gzip_min_length 1k;
+    gzip_buffers 4 16k;
+    gzip_http_version 1.1;
+    gzip_comp_level 4;
+    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+    gzip_vary on;
+    gzip_disable "MSIE [1-6].";
+
+    #限制用户连接数来预防DOS攻击
+    limit_conn_zone $binary_remote_addr zone=perip:10m;
+    limit_conn_zone $server_name zone=perserver:10m;
+    #限制同一客户端ip最大并发连接数
+    limit_conn perip 10;
+    #限制同一server最大并发连接数
+    limit_conn perserver 100;
+
     location / {
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
