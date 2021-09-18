@@ -303,4 +303,8 @@
     bg 1
 
 
+>查找文件
+
+    find ./ -name 'filename' -maxdepth 2
+
 [返回目录](../../README.md)
