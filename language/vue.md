@@ -22,4 +22,15 @@
     errorCaptured -> onErrorCaptured
     
 
+### vite
+
+> 安装
+
+    npm i -g @vitejs/app
+
+> 创建项目
+
+    yarn create @vitejs/app
+
+
 [返回目录](../README.md)
