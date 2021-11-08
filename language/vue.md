@@ -26,11 +26,15 @@
 
 > 安装
 
-    npm i -g @vitejs/app
+    npm i -g create-vite-app
 
 > 创建项目
 
     yarn create @vitejs/app
 
+    // 报错处理
+    1.yarn : 无法加载文件 C:\Users\Administrator\AppData\Roaming\npm\yarn.ps1，因为在此系统上禁止运行脚本。
+    管理员打开 powerShell
+    set-ExecutionPolicy RemoteSigned
 
 [返回目录](../README.md)
