@@ -110,6 +110,18 @@
     mount -a
     # 卸载挂载
     umount /dev/sdb
+
+> 磁盘IO
+
+    sar -d -p 1 2
+
+    “-d”参数代表查看磁盘性能，“-p”参数代表将 dev 设备按照 sda，sdb……名称显示，“1”代表每隔1s采取一次数值，“2”代表总共采取2次数值。
+    await：平均每次设备 I/O 操作的等待时间（以毫秒为单位）。 
+
+    svctm：平均每次设备 I/O 操作的服务时间（以毫秒为单位）。
+    
+    %util：一秒中有百分之几的时间用于 I/O 操作。
+
 > 查看并发
     
     netstat -antp | grep 80 | grep ESTABLSED -c
