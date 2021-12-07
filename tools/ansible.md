@@ -46,7 +46,19 @@
     [temp]
     temp1 ansible_ssh_host=127.0.0.1 ansible_ssh_user="root" ansible_ssh_pass="123456" ansible_become_pass="123456"
     
-
+    
+    ###
+    ansible_ssh_sost  目标主机
+    ansible_ssh_port                    # 目标主机端口，默认22
+    ansible_ssh_user                    # 目标主机用户
+    ansible_ssh_pass                    # 目标主机ssh密码
+    ansible_sudo_pass                 # sudo密码
+    ansible_sudo_exe                    
+    ansible_connection               # 与主机的连接类型，比如：local,ssh或者paramiko
+    ansible_ssh_private_key_file  # 私钥地址
+    ansible_shell_type                 # 目标系统的shell类型
+    ansible_python_interpreter   # python版本
+    
 > yml
 
 ```yaml
