@@ -77,7 +77,15 @@
 ```
     ansible-playbook -i hosts xx.yaml --tags "copy"
 
->> tags 标签
->> 1.--tags 只会执行带有指定tags 的任务
->> 2.拥有相同的tags 都会被执行
->> 3.名字为 always的 tags 不论是否被指定， 都会强制执行 
+> tags 标签
+> 
+1.--tags 只会执行带有指定tags 的任务
+
+2.拥有相同的tags 都会被执行
+
+3.名字为 always的 tags 不论是否被指定， 都会强制执行
+
+
+
+
+[返回目录](../README.md)

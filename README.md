@@ -23,7 +23,7 @@
 
 [mac命令](./system/mac/shell.md)
 
-###### 工具类
+###### devops
 
 [docker](./tools/docker.md)
 
@@ -31,11 +31,13 @@
 
 [git](./tools/git.md)
 
-###### 运维工具
-
-
 [Zabbix](./tools/zabbix.md)
 
+[ansible](./tools/ansible.md)
+
+[nginx](./tools/nginx.md)
+
+[port](./tools/port.md)
 
 
 [目录](#1)
