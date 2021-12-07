@@ -40,12 +40,19 @@
     -l ~REGEX, --limit=~REGEX：    指定运行主机（正则）。
     --list-hosts：                 列出符合条件的主机列表，不执行任何其他命令
 
+
+> hosts
+    
+    [temp]
+    temp1 ansible_ssh_host=127.0.0.1 ansible_ssh_user="root" ansible_ssh_pass="123456" ansible_become_pass="123456"
+    
+
 > yml
 
 ```yaml
     ---
-    - hosts: aotocard1
-      remote_user: ubuntu
+    - hosts: temp1  # 指定hosts 文件的主机， 多个 可以使用冒号分割
+      remote_user: ubuntu # 指定在远程主机上执行命令的用户
       vars:
           src_path: ../../temp/          # 注意 src为本地时 相对路径的起始路径yaml文件所在位置， 路径最后加 “/” 将拷贝目录内的所有内容, 不加“/” 将拷贝目录本身
           dst_path: /home/quiet/temp
@@ -69,3 +76,8 @@
 
 ```
     ansible-playbook -i hosts xx.yaml --tags "copy"
+
+>> tags 标签
+>> 1.--tags 只会执行带有指定tags 的任务
+>> 2.拥有相同的tags 都会被执行
+>> 3.名字为 always的 tags 不论是否被指定， 都会强制执行 
