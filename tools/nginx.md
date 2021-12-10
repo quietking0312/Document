@@ -37,10 +37,10 @@
 
 
     gzip  on;
-    gzip_min_length 1k;
-    gzip_buffers 4 16k;
+    gzip_min_length 1k;  #压缩页面最小字节数
+    gzip_buffers 4 16k; # 以16k 为单位 4倍
     gzip_http_version 1.1;
-    gzip_comp_level 4;
+    gzip_comp_level 4; # gzip 压缩比 1-9， 1压缩比最小，速度最快， 9压缩比最大，速度最慢， 消耗cpu
     gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
     gzip_vary on;
     gzip_disable "MSIE [1-6].";
@@ -54,9 +54,29 @@
     limit_conn perserver 100;
 
     location / {
+        if ($request_uri ~* .(gz)$){
+            add_header 'content-encoding' gzip;
+        }
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
     }
+
+> cors.conf
+
+```
+if ($request_method = 'OPTIONS') {
+    add_header 'Access-Control-Allow-Origin' '*' always;
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE' always;
+    add_header 'Access-Control-Allow-Headers' 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,Content-Disposition' always;
+    add_header 'Access-Control-Max-Age' 1728000 always;
+
+    return 204;
+}
+
+if ($request_method ~* "(GET|POST|DELETE|PUT)") {
+    add_header 'Access-Control-Allow-Origin' '*' always;
+}
+```
 
 [返回目录](../README.md)
