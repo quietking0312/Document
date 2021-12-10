@@ -57,6 +57,13 @@
         if ($request_uri ~* .(gz)$){
             add_header 'content-encoding' gzip;
         }
+        location ~* ^.*\.(wasm.gz)$ { # 静态压缩解决方案
+            gunzip on; # 该条需要插件ngx_http_gunzip_module 支持
+            gzip off; # 已经做了静态压缩, nginx 不需要对其进行压缩
+            types {}
+            default_type application/wasm;
+            add_header Content-Encoding gzip;
+        }
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
