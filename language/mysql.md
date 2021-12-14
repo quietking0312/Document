@@ -1,3 +1,27 @@
+> 安装
+
+```shell
+    # 安装add-apt-repository 命令
+    apt-get install software-properties-common
+    #添加源
+    add-apt-repository 'deb http://archive.ubuntu.com/ubuntu trusty universe'
+    # 安装
+    apt update
+    apt install mysql-server-5.6
+    
+    
+    # 报错
+    
+    The following packages have unmet dependencies:
+     mysql-server-5.6 : Depends: initscripts but it is not installable
+                        Depends: sysv-rc (>= 2.88dsf-24) but it is not installable or
+                                 file-rc (>= 0.8.16) but it is not installable
+                        Recommends: libhtml-template-perl but it is not going to be installed
+    E: Unable to correct problems, you have held broken packages.
+    # 原因 ubuntu 17.04 仅支持mysql5.7
+    # ubuntu 20.04 支持mysql8.0
+    
+```
 
 > 启动， 停止， 重启， 查询
 
