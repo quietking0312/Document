@@ -50,3 +50,9 @@ server {
 
 }
 ```
+docker 集群部署注意事项
+1. nginx-php-fpm工作流程如下
+```shell
+  用户请求 -> nginx ->转发php解析器 -> php-fpm -> 读取代码 执行函数 -> 返回 -> nginx -> 返回 -> 用户页面展示
+```
+2. 读取php代码的工作由php-fpm 进程完成，读取js,css代码由nginx完成， 因此需要将代码目录同时挂载到php-fpm 容器和nginx容器相同的路径下
