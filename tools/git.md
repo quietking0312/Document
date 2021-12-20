@@ -58,4 +58,20 @@
 
     -f -----强制运行
 
+> 删除历史文件，空间清理
+
+```shell
+	git filter-branch -f --prune-empty --index-filter "git rm --ignore-unmatch --cached -rf {文件名}" --tag-name-filter cat -- --all
+	# gc
+	rm -rf .git/refs/original
+	git reflog expire --expire=now --all
+	git fsck --full --unreachable
+	git repack -A -d
+	git gc --aggressive --prune=now
+	# 提交
+	git push --force --all
+
+	git count-objects -v
+```
+
 [返回目录](../README.md)
