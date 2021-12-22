@@ -1,0 +1,23 @@
+---
+- hosts: aotocard1
+  remote_user: ubuntu
+  vars:
+    src_path: ../../projectname/
+    dst_path: /home/ubuntu/projectname
+  tasks:
+    - name: copy
+      become: true
+      tags:
+        - copy
+      copy:
+        remote_src: false
+        src: "{{ src_path }}"
+        dest: "{{ dst_path }}"
+        owner: ubuntu
+        group: ubuntu
+        backup: yes
+        mode: 0755
+    - name: ls
+      tags:
+        - copy
+      shell: ls -l
