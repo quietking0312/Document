@@ -32,8 +32,13 @@ nginx
 二、 安装
 
 1. 安装gitlab
-> 源码安装[更新中...]
+> 默认安装[开发机性能不足无法顺利编译,更新中...]
+> 
 > 清华大学开源镜像站：https://mirrors.tuna.tsinghua.edu.cn/gitlab-ee/
+> 
+> 官方安装脚本 https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh
+
+>镜像安装方法：
 ```shell
 # 安装密钥
 curl https://packages.gitlab.com/gpg.key | apt-key add -
@@ -42,7 +47,7 @@ apt install gnupg2
 # gnupg 是一种用于加密，数字签名，生产非对称密钥对的软件
 ```
 ```shell
- # ubuntu 配置源
+# ubuntu 配置源
  vi /etc/apt/sources.list.d/gitlab-ee.list
  # 添加以下内容
  deb https://mirrors.tuna.tsinghua.edu.cn/gitlab-ee/ubuntu xenial main
@@ -51,6 +56,19 @@ apt install gnupg2
 ```
 ```shell
 apt install gitlab-ee
+```
+
+> 官方脚本安装:
+```shell
+# 环境
+sudo apt-get update
+sudo apt-get install -y curl openssh-server ca-certificates tzdata perl
+# 邮箱
+sudo apt-get install -y postfix
+# 配置源
+curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh | sudo bash
+# 安装
+sudo EXTERNAL_URL="https://gitlab.example.com" apt-get install gitlab-ee
 ```
 
 >docker 安装
@@ -95,5 +113,4 @@ external_url 'http://192.168.0.1'  # 修改为ip或者域名， 指拉取git 的
 # # ssh连接， 页面主题， 邮箱服务器设置等相关
 
 
-#
 ```
