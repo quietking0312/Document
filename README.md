@@ -19,7 +19,9 @@
 
 │  [apt-get](./system/linux/apt-get.md)
 
-│  [其他](./system/linux/centos.md)
+│  [cron](./system/linux/cron.md)
+
+│  [shell](./system/linux/shell.md)
 
 [mac命令](./system/mac/shell.md)
 
