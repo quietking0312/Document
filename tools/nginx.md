@@ -52,7 +52,8 @@
     limit_conn perip 10;
     #限制同一server最大并发连接数
     limit_conn perserver 100;
-
+    # 资源过期时间
+    expires 1d;
     location / {
         if ($request_uri ~* .(gz)$){
             add_header 'content-encoding' gzip;
@@ -67,6 +68,12 @@
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
+    }
+    
+    // 不缓存静态资源
+    location ~ .*\.(css|js|swf|php|htm|html )$ {
+        add_header Cache-Control no-store;
+        add_header Pragma no-cache;
     }
 
 > cors.conf
