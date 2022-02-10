@@ -111,5 +111,12 @@
     Range checked for each record(index map: N)	没有好用的索引，新的索引将在联接的每一行上重新估算，N是显示在possible_keys列中索引的位图，并且是冗余的
 ```
 
+> 查询命令线程
+
+    select * from information_schema.innodb_trx
+
+    kill {trx_mysql_thread_id}
+
+
 
 [返回目录](../README.md)
