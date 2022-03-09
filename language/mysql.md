@@ -121,6 +121,25 @@
 
     kill {trx_mysql_thread_id}
 
+> 事务
+```mysql
+    drop procedure if exists update_proj_item;
+    create procedure update_proj_item()
+    begin
+    declare i int default 0;
+    declare n varchar(255);
 
+    declare report cursor for select `leader` from `s_proj_item`;
+    declare continue handler for not found set i = 1;
+    open report;
+    fetch report into n;
+    while i <> 1 do
+            update s_proj_item set s_proj_item.create_uid=ifnull((select uid from m_user where m_user.name=n), 0) where leader=n;
+            fetch report into n;
+        end while;
+    close report;
+    end;
+
+```
 
 [返回目录](../README.md)
