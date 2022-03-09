@@ -33,6 +33,10 @@
     
     service mysql status
 
+> 命令行
+
+    mysql -uroot -proot --default-character-set=utf8
+
 
 > 创建数据库
 
