@@ -175,11 +175,11 @@
     -z：传输过程中启用压缩
     -A：保留文件的ACL属性信息
     -n：测试同步过程，不做实际修改
-    –delete：删除目标文件夹内多余的文档
+    –-delete：删除目标文件夹内多余的文档
     -e: 协议
 
     # 远程同步
-    rsync -ae ssh /home/data root@127.0.0.2:/home/data
+    rsync -ae ssh /home/data root@127.0.0.2:/home/data --delete
 
 
 > 文件句柄

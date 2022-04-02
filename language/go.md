@@ -7,6 +7,8 @@
     # mac
     export GOPROXY=https://mirrors.aliyun.com/goproxy/
 
+    // 取消代理
+    go env -u GOPROXY
 ### go mod 命令
     go mod init <module>  # 初始化
     go mod tidy           # 添加未被收录的模块， 删除不使用的引用
