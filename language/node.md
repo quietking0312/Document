@@ -13,6 +13,9 @@
 
     npm install npm -g
     
+> 该命令用于解决windows 上运行无签名的程序报错问题， 常见与 yarn 命令报错
+
+    set-ExecutionPolicy RemoteSigned
     
 
 
