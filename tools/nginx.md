@@ -17,7 +17,44 @@
     或
     nginx.exe -s stop
 
-    
+> 正则
+```
+  ^	匹配输入字符串的起始位置
+  $	匹配输入字符串的结束位置
+  *	匹配前面的字符零次或多次
+  + 匹配前面的字符一次或多次
+  ？匹配前面的字符零次或一次
+  .	匹配除“\n”之外的任何单个字符
+  \	将后面接着的字符标记为一个特殊字符或一个原义字符或一个向后引用
+  \d	匹配纯数字
+  {n}	重复n次
+  {n,m}	重复n次或更多次
+  [ ]	定义匹配的字符范围
+  [c]	匹配单个字符c
+  [a-z]	匹配a-z小写字母的任意一个
+  [a-zA-Z]	匹配a-z小写字母或A-Z大写字母的任意一个
+  ()	表达式的开始和结束位置
+  l	或运算符
+```
+
+
+> location 常用匹配规则
+=	进行普通字符精确匹配，也就是完全匹配
+^~	表示普通字符匹配。使用前缀匹配。如果匹配成功，则不再匹配其他location
+~	匹配大小写的匹配
+~*	不区分大小写的匹配
+!~	区分大小写的匹配取非
+!~*	不区分大小写的匹配取非
+> location 优先度 
+首先精确匹配 =
+其次前缀匹配 ^~
+其次是按文件中顺序的正则匹配 ~ 或 ~*
+然后匹配不带任何修饰的前缀匹配
+最后是交给 / 通用匹配
+> 匹配顺序
+首先看 优先级：精确>前缀>正则>一般>通用
+优先级相同：正则看上下顺序，上面的优先；一般匹配看长度，最长匹配的优先
+精确、前缀、正则、一般 都没有匹配到，最后再看通用匹配
 
 > 配置
 > 
@@ -36,6 +73,9 @@
             max_clients = worker_processes * worker_connections/4
 
 
+
+    # 限制訪問的域名
+    server_name 0.0.0.0;
     gzip  on;
     gzip_min_length 1k;  #压缩页面最小字节数
     gzip_buffers 8 16k; # 以16k 为单位 4倍
@@ -55,6 +95,19 @@
     # 资源过期时间
     expires 1d;
     location / {
+        # rewrite <regex> <replacement> [flag];
+        # regex ：表示正则匹配规则。
+        # replacement ：表示跳转后的内容。
+        # flag ：表示 rewrite 支持的 flag 标记。
+        ### flag 标记说明
+        # last ：本条规则匹配完成后，继续向下匹配新的location URL规则，一般用在 server 和 if 中。
+        # break ：本条规则匹配完成即终止，不再匹配后面的任何规则，一般使用在 location 中。
+        # redirect ：返回302临时重定向，浏览器地址会显示跳转后的URL地址。
+        # permanent ：返回301永久重定向，浏览器地址栏会显示跳转后的URL地址。
+
+        if ($host = 'www.baidu.com') {
+            rewrite ^/(.*)$ https://www.hao123.com/$1 permanent; 
+        }
         if ($request_uri ~* .(gz)$){
             add_header 'content-encoding' gzip;
         }
