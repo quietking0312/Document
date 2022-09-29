@@ -57,6 +57,8 @@
 
     // 查看磁盘挂载详情
     fdisk -l    
+    // 查看磁盘目录映射
+    lsblk -f
     // 查看磁盘总占用
     df -h
     // 查看指定目录占用磁盘
@@ -321,6 +323,14 @@
     -x<文件>	指定不要处理.zip压缩文件中的哪些文件；
     -Z	unzip-Z等于执行zipinfo指令。
 
+> tar
+    # 打包
+    tar cvf abc.tar abc
+    tar -zcvf abc.tar.gz abc
+    # 解包
+    tar xvf abc.tar
+    tar -zxvf abc.tar.gz
+    
     
 
 [返回目录](../../README.md)

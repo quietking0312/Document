@@ -72,7 +72,12 @@
         nginx作为反向代理服务器的时候：
             max_clients = worker_processes * worker_connections/4
 
-
+    # 负载均衡 [name] 需要配置在 
+    upstream [name] {
+        # ip_hash; 基于ip分配
+        server 127.0.0.1:8080 weight=10; # 权重轮询
+        server 127.0.0.1:8081 weight=1
+    }
 
     # 限制訪問的域名
     server_name 0.0.0.0;
@@ -127,6 +132,9 @@
     location ~ .*\.(css|js|swf|php|htm|html )$ {
         add_header Cache-Control no-store;
         add_header Pragma no-cache;
+    }
+    location ^~ /api {
+        proxy_pass http://name;
     }
 
 > cors.conf
