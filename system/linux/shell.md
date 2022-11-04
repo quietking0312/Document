@@ -194,6 +194,8 @@
     ulimit -HSn 2048
     # 永久修改文件句柄数
     vi /etc/security/limits.conf
+    *                soft    nofile          100000
+    *                hard    nofile          100000
 
 > cpu
 
