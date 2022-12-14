@@ -52,13 +52,17 @@ func UploadFile(uploader *manager.Uploader, bucket, localFilePath, remoteFilePat
 	}
 	defer data.Close()
 	ctx := context.Background()
-	result, err := uploader.Upload(ctx, &s3.PutObjectInput{
+	opts := &s3.PutObjectInput{
 		Bucket:      aws.String(bucket),
 		Key:         aws.String(remoteFilePath),
 		Body:        data,
 		ACL:         types.ObjectCannedACLPublicRead,
 		ContentType: aws.String(DefaultMime.GetMime(remoteFilePath)),
-	})
+	}
+	if strings.HasSuffix(remoteFilePath, "gz") {
+		opts.ContentEncoding = aws.String("gzip")
+	}
+	result, err := uploader.Upload(ctx, opts)
 	if err != nil {
 		var mu manager.MultiUploadFailure
 		if errors.As(err, &mu) {
