@@ -7,6 +7,8 @@
 >          -e   #编辑
 >          -r   #删除
 >          -u   #指定其它用户
+>  # -e 保存的文件默认在 /var/spool/cron/crontabs/{user}
+> 
 > ```
 
 
