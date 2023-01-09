@@ -87,9 +87,10 @@ func main() {
 	var showVersion bool
 	var bucket string
 	var localPath string
+	var remotePath string
 	var region string
 	//var mode string
-	localPath = "D:\\Desktop\\live_AT1"
+	//localPath = "D:\\Desktop\\live_AT1"
 	var rootCmd = &cobra.Command{
 		Use:   "root",
 		Short: "",
@@ -99,6 +100,7 @@ func main() {
 				fmt.Printf("Build from version: %s\n", version)
 				return
 			}
+
 			fileList := FileForEach(localPath)
 			if len(fileList) < 0 {
 				return
@@ -123,7 +125,9 @@ func main() {
 				remoteFilePath = strings.Trim(remoteFilePath, "/")
 				remoteFilePath = strings.Trim(remoteFilePath, "\\")
 				remoteFilePath = strings.Replace(remoteFilePath, "\\", "/", -1)
-
+				if remotePath != "" {
+					remoteFilePath = path.Join(remotePath, remoteFilePath)
+				}
 				group.Add(1)
 				go func(localFilePath, remoteFilePath string) {
 					defer group.Done()
@@ -160,6 +164,7 @@ func main() {
 	rootCmd.Flags().StringVarP(&bucket, "bucket", "b", "release-byte-city", "储存桶名称")
 	rootCmd.Flags().StringVarP(&region, "region", "r", "us-east-1", "地区")
 	rootCmd.Flags().StringVarP(&localPath, "localPath", "l", "", "上传本地目录")
+	rootCmd.Flags().StringVarP(&remotePath, "remotePath", "p", "", "远程目录")
 	//rootCmd.Flags().StringVarP(&mode, "mode", "m", "dir", "模式 [dir]")
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
