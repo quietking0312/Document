@@ -11,7 +11,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/spf13/cobra"
-	"io/ioutil"
 	"log"
 	"os"
 	"path"
@@ -26,7 +25,7 @@ var awsKey string
 var awsSecret string
 
 func FileForEach(dirPath string) []string {
-	files, err := ioutil.ReadDir(dirPath)
+	files, err := os.ReadDir(dirPath)
 	if err != nil {
 		log.Fatalln(err)
 	}
