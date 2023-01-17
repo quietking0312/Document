@@ -17,6 +17,11 @@ services:
     build: .
     ports:
       - "18050:18104"
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
     depends_on:
       - mysql
       - redis
