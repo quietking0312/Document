@@ -55,6 +55,7 @@ func (basics BucketBasics) UploadFiles(fileList []string, localPath string, remo
 	var group sync.WaitGroup
 	t := time.Now().Unix()
 	num := len(fileList)
+	n := make(chan struct{}, 5)
 	fmt.Printf("开始上传, 共%d个文件\n", num)
 	for _, localFilePath := range fileList {
 		remoteFilePath := strings.Replace(localFilePath, path.Join(localPath), "", 1)
@@ -64,9 +65,13 @@ func (basics BucketBasics) UploadFiles(fileList []string, localPath string, remo
 		if remotePath != "" {
 			remoteFilePath = path.Join(remotePath, remoteFilePath)
 		}
+		n <- struct{}{}
 		group.Add(1)
 		go func(localFilePath, remoteFilePath string) {
-			defer group.Done()
+			defer func() {
+				group.Done()
+				<-n
+			}()
 			if !basics.UploadFile(uploader, bucketName, localFilePath, remoteFilePath) {
 				errFiles = append(errFiles, ErrFileItem{
 					RemotePath: remoteFilePath,
