@@ -58,84 +58,109 @@
 
 > 配置
 > 
+```nginx configuration
     use epoll;
-    # 进程数, 建议设置为cpu 核心数
+    # 进程数, 建议设置为cpu 核心数  默认 auto
     worker_processes 4
-    # 每个worker 能处理的最大链接数, 不能超过 文件句柄数
-    worker_connections
-    multi_accept off;
-
-
-    实际最大链接数计算方法
-        nginx作为http服务器的时候：
-            max_clients = worker_processes * worker_connections/2
-        nginx作为反向代理服务器的时候：
-            max_clients = worker_processes * worker_connections/4
-
-    # 负载均衡 [name] 需要配置在 
-    upstream [name] {
-        # ip_hash; 基于ip分配
-        server 127.0.0.1:8080 weight=10; # 权重轮询
-        server 127.0.0.1:8081 weight=1
+    # nginx 每个进程可使用的文件句柄数
+    worker_rlimit_nofile 65535;
+    events {
+        # 每个worker 能处理的最大链接数, 不能超过 文件句柄数
+        worker_connections 768;
+        multi_accept off;
     }
 
-    # 限制訪問的域名
-    server_name 0.0.0.0;
-    gzip  on;
-    gzip_min_length 1k;  #压缩页面最小字节数
-    gzip_buffers 8 16k; # 以16k 为单位 4倍
-    gzip_http_version 1.1;
-    gzip_comp_level 4; # gzip 压缩比 1-9， 1压缩比最小，速度最快， 9压缩比最大，速度最慢， 消耗cpu
-    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
-    gzip_vary on;
-    gzip_disable "MSIE [1-6].";
-
-    #限制用户连接数来预防DOS攻击
-    limit_conn_zone $binary_remote_addr zone=perip:10m;
-    limit_conn_zone $server_name zone=perserver:10m;
-    #限制同一客户端ip最大并发连接数
-    limit_conn perip 10;
-    #限制同一server最大并发连接数
-    limit_conn perserver 100;
-    # 资源过期时间
-    expires 1d;
-    location / {
-        # rewrite <regex> <replacement> [flag];
-        # regex ：表示正则匹配规则。
-        # replacement ：表示跳转后的内容。
-        # flag ：表示 rewrite 支持的 flag 标记。
-        ### flag 标记说明
-        # last ：本条规则匹配完成后，继续向下匹配新的location URL规则，一般用在 server 和 if 中。
-        # break ：本条规则匹配完成即终止，不再匹配后面的任何规则，一般使用在 location 中。
-        # redirect ：返回302临时重定向，浏览器地址会显示跳转后的URL地址。
-        # permanent ：返回301永久重定向，浏览器地址栏会显示跳转后的URL地址。
-
-        if ($host = 'www.baidu.com') {
-            rewrite ^/(.*)$ https://www.hao123.com/$1 permanent; 
+    #     实际最大链接数计算方法
+    #         nginx作为http服务器的时候：
+    #             max_clients = worker_processes * worker_connections/2
+    #         nginx作为反向代理服务器的时候：
+    #             max_clients = worker_processes * worker_connections/4
+    http {
+        #限制用户连接数来预防DOS攻击
+        limit_conn_zone $binary_remote_addr zone=perip:10m;
+        limit_conn_zone $server_name zone=perserver:10m;
+        #限制同一客户端ip最大并发连接数
+        limit_conn perip 10;
+        #限制同一server最大并发连接数
+        limit_conn perserver 100;
+        
+        # 设置客户端请求体超时时间为90秒
+        client_body_timeout 90s;
+        
+        # 设置客户端请求头超时时间为90秒
+        client_header_timeout 90s;
+        
+        # 设置keep-alive超时时间为180秒
+        keepalive_timeout 180s;
+        
+        # 设置发送超时时间为120秒
+        send_timeout 120s;
+        
+        # 负载均衡 [name] 需要配置在 
+        upstream [name] {
+            # ip_hash; 基于ip分配
+            server 127.0.0.1:8080 weight=10; # 权重轮询
+            server 127.0.0.1:8081 weight=1;
         }
-        if ($request_uri ~* .(gz)$){
-            add_header 'content-encoding' gzip;
-        }
-        location ~* ^.*\.(wasm.gz)$ { # 静态压缩解决方案
-            gunzip on; # 该条需要插件ngx_http_gunzip_module 支持
-            gzip off; # 已经做了静态压缩, nginx 不需要对其进行压缩
-            types {}
-            default_type application/wasm;
-            add_header Content-Encoding gzip;
-        }
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-    }
+        server {
+        
+            listen 80;
+                # 限制訪問的域名
+            server_name 0.0.0.0;
+            gzip  on;
+            gzip_min_length 1k;  #压缩页面最小字节数
+            gzip_buffers 8 16k; # 以16k 为单位 4倍
+            gzip_http_version 1.1;
+            gzip_comp_level 4; # gzip 压缩比 1-9， 1压缩比最小，速度最快， 9压缩比最大，速度最慢， 消耗cpu
+            gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+            gzip_vary on;
+            gzip_disable "MSIE [1-6].";
+            # 资源过期时间
+            expires 1d;
+            location / {
+                # rewrite <regex> <replacement> [flag];
+                # regex ：表示正则匹配规则。
+                # replacement ：表示跳转后的内容。
+                # flag ：表示 rewrite 支持的 flag 标记。
+                ### flag 标记说明
+                # last ：本条规则匹配完成后，继续向下匹配新的location URL规则，一般用在 server 和 if 中。
+                # break ：本条规则匹配完成即终止，不再匹配后面的任何规则，一般使用在 location 中。
+                # redirect ：返回302临时重定向，浏览器地址会显示跳转后的URL地址。
+                # permanent ：返回301永久重定向，浏览器地址栏会显示跳转后的URL地址。
+        
+                if ($host = 'www.baidu.com') {
+                    rewrite ^/(.*)$ https://www.hao123.com/$1 permanent; 
+                }
+                if ($request_uri ~* .(gz)$) {
+                    add_header 'content-encoding' gzip;
+                }
+                location ~* ^.*\.(wasm.gz)$ { # 静态压缩解决方案
+                    gunzip on; # 该条需要插件ngx_http_gunzip_module 支持
+                    gzip off; # 已经做了静态压缩, nginx 不需要对其进行压缩
+                    types {}
+                    default_type application/wasm;
+                    add_header Content-Encoding gzip;
+                }
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "upgrade";
+            }
     
-    // 不缓存静态资源
-    location ~ .*\.(css|js|swf|php|htm|html )$ {
-        add_header Cache-Control no-store;
-        add_header Pragma no-cache;
+            // 不缓存静态资源
+            location ~ .*\.(css|js|swf|php|htm|html )$ {
+                add_header Cache-Control no-store;
+                add_header Pragma no-cache;
+            }
+            location ^~ /api {
+                proxy_pass http://name;
+            }
+        }
+    
+      
     }
-    location ^~ /api {
-        proxy_pass http://name;
-    }
+
+```
+
 
 > cors.conf
 
