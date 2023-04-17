@@ -4,9 +4,7 @@ os.environ["CGO_ENABLED"] = "0"
 os.environ["GOARCH"] = "amd64"
 
 # darwin, windows, linux
-os.environ["GOOS"] = "windows"
-awsKey = "AKIATVLMEK2LYHICGCHC"
-awsSecret = "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"
+
 keys = f"-X 'main.awsKey={awsKey}' -X 'main.awsSecret={awsSecret}'"
 
 has = os.popen("git log -n1 --format=format:%H")
