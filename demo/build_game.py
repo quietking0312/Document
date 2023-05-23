@@ -51,6 +51,8 @@ class Command(object):
     """
     通用
     """
+    ENV = {"PATH": os.environ.get("PATH")}
+    SCRIPT_DIR_PATH = os.path.dirname(os.path.abspath(__file__))
 
     @staticmethod
     def exec_command(cmd: str, shell: bool = False):
@@ -62,15 +64,17 @@ class Command(object):
         """
         end_line = ""
         try:
-            print(cmd)
-            sub_obj = subprocess.Popen(shlex.split(cmd), shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                       universal_newlines=True)
+            cmd_list = cmd
+            if shell and type(cmd_list) == str:
+                cmd_list = shlex.split(cmd_list)
+            print(cmd_list, flush=True)
+            sub_obj = subprocess.Popen(cmd_list, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                       universal_newlines=True, env=Command.ENV, cwd=Command.SCRIPT_DIR_PATH)
             while sub_obj.poll() is None:
                 line = sub_obj.stdout.readline()
                 line = line.strip()
                 if line:
-                    end_line = line
-                    print(line)
+                    end_line += line + "\n"
         except Exception as err:
             print(err)
             sys.exit(1)
