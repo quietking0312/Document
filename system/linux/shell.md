@@ -194,8 +194,13 @@
     ulimit -HSn 2048
     # 永久修改文件句柄数
     vi /etc/security/limits.conf
-    *                soft    nofile          100000
-    *                hard    nofile          100000
+    *                soft    nofile          65535
+    *                hard    nofile          65535
+
+    # 查看系统所有的已使用文件句柄数
+    lsof -n | awk '{print $2}' | wc -l
+    
+    
 
 > cpu
 
