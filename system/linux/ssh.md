@@ -30,3 +30,8 @@
     AuthorsizedKeysFile .ssh/authorized_keys  //指定公钥数据库文件
     #重启ssh服务
     service sshd restart
+
+
+>配置公钥
+
+    cat id_rsa.pub >> ~/.ssh/authorized_keys
